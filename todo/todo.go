@@ -29,6 +29,7 @@ func (l *List) Add(task string) {
 
 func (l *List) Complete(i int) error {
 	ls := *l
+	fmt.Print(ls)
 	if i <= 0 || i > len(ls) {
 		return fmt.Errorf("Item %d does not exist", i)	
 	}
@@ -68,6 +69,16 @@ func (l *List) Get(filename string) error {
 	}
 	return json.Unmarshal(file, l)
 }
+
+//func (l *List) TodoList *List {
+//	var newList *List
+//	for idx, item := range *l {
+//		if item.Done {
+//			newList = append(*l[:idx-1], *l[idx:]...)
+//		}
+//	}
+//	return newList
+//}
 
 func (l *List) String() string {
 	formatted := ""

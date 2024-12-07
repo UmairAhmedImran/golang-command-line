@@ -22,7 +22,9 @@ func main() {
 	list := flag.Bool("list", false, "List all tasks")
 	complete := flag.Int("complete", 0, "Item to be completed")
 	deleteTask := flag.Int("delete", 0, "Item to be deleted") 
-	
+	todoList := flag.Bool("todo", false, "Item to do")
+	completedList := flag.Bool("completedtodo", false, "items completed")
+
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(),
 		"%s tool. Developed for The Pragmatic Bookshelf\n", os.Args[0])
@@ -53,6 +55,11 @@ func main() {
 				fmt.Fprintln(os.Stderr, err)
 				os.Exit(1)
 			}
+		case *todoList:
+			updatedList := TodoList(l)
+			fmt.Print(updatedList)
+		case *completedList:
+			fmt.Print(l)
 		case *add:
 			t, err := getTask(os.Stdin, flag.Args()...)
 			if err != nil {
