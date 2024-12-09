@@ -70,26 +70,36 @@ func (l *List) Get(filename string) error {
 	return json.Unmarshal(file, l)
 }
 
-//func (l *List) TodoList *List {
-//	var newList *List
-//	for idx, item := range *l {
-//		if item.Done {
-//			newList = append(*l[:idx-1], *l[idx:]...)
-//		}
-//	}
-//	return newList
-//}
+func (l *List) TodoList() *List {
+    newList :=  &List{}
+    for _, item := range *l {
+        if !item.Done {
+            *newList = append(*newList, item)
+        }
+    }
+    return newList
+}
+
+
+func (l *List) CompletedList() *List {
+    newList :=  &List{}
+    for _, item := range *l {
+        if item.Done {
+            *newList = append(*newList, item)
+        }
+    }
+    return newList
+}
+
 
 func (l *List) String() string {
 	formatted := ""
-
 	for k, t := range *l {
-		prefix := "  "
+		prefix := " "
 		if t.Done {
 			prefix = "X "
 		}
-
-	formatted += fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task)
+		formatted += fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task) 
 	}
 	return formatted
 }

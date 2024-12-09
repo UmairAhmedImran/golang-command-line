@@ -56,10 +56,11 @@ func main() {
 				os.Exit(1)
 			}
 		case *todoList:
-			updatedList := TodoList(l)
-			fmt.Print(updatedList)
+			todoList := l.TodoList()
+			fmt.Print(todoList, "oklies\n what now huh")
 		case *completedList:
-			fmt.Print(l)
+			completedTaskList := l.CompletedList()
+			fmt.Print(completedTaskList)
 		case *add:
 			t, err := getTask(os.Stdin, flag.Args()...)
 			if err != nil {
